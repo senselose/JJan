@@ -1,5 +1,6 @@
 // 이게 되네
 // 이제 소스트리에서 고쳐봐
+// 그래 된다 임마 열었다 고쳤다
 // 주석 처리 asd
 import { useState } from "react";
 
