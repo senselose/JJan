@@ -1,0 +1,103 @@
+/* header css */
+html {
+    font-size: 10px;
+}
+
+body {
+    font-size: 1.6rem;
+    margin: 0; /* Body의 기본 margin 제거 */
+    padding: 0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 모든 요소의 box-sizing을 border-box로 설정 */
+}
+
+ul li,
+ol li {
+    list-style: none; /* 리스트 스타일 제거 */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#header {
+    display: flex;
+    justify-content: center; /* 가로 방향 가운데 정렬 */
+    align-items: center; /* 세로 방향 가운데 정렬 */
+    padding: 2rem;
+    position: relative;
+}
+
+#header #gnb {
+    display: flex;
+    z-index: 99;
+}
+
+#header #gnb > .dept1 {
+    position: relative;
+    padding: 1rem 2rem;
+    text-align: center;
+    
+}
+
+#header #gnb > .dept1 > a {
+    font-size: 2rem; /* 가나다 메뉴의 글자 크기 설정 */
+    font-weight: bold; /* 가나다 메뉴의 글자 굵기 설정 */
+}
+
+#header #gnb > .dept1 > a.active {
+    color: rgb(0, 0, 0);
+    text-decoration: underline;
+    text-decoration-thickness: 2px; /* 밑줄 두께 설정 */
+    text-decoration-color: rgb(0, 0, 0); /* 밑줄 색상 설정 */
+    text-underline-offset: 5px; /* 밑줄 위치 조정 */
+}
+
+#header #gnb .inner_menu {
+    position: absolute;
+    top: 10px; /* 헤더 바로 아래에서 시작하도록 조정 */
+    left: 0;
+    right: 0; /* 화면 양쪽 끝까지 가리도록 설정 */
+    transform: translateX(0); /* 가운데 정렬을 위한 조정 */
+    width: 100%;
+    padding-top: 5rem;
+    padding-bottom: 10rem;
+    display: none;
+}
+
+#header #gnb .dept2 {
+    padding: 1rem 0;
+    color: #000000;
+
+}
+
+#header #gnb .dept2 > a:hover,
+#header #gnb .dept2 > a:active,
+#header #gnb .dept2 > a:focus {
+    font-weight: bold;
+    color: #000000;
+    text-decoration: none;
+}
+
+.hd_bg {
+    background: #ffffff;
+    width: 100%; /* 가로로 화면 끝까지 확장 */
+    z-index: 1; /* 다른 요소들보다 더 높은 z-index 값 설정 */
+    position: absolute;
+    top: -100%; /* 초기 상태에서는 화면 위쪽에 위치 */
+    height: 0; /* 초기 상태에서는 높이가 0 */
+    transition: top 0.3s ease, height 0.3s ease; /* top과 height 속성에 대한 애니메이션 설정 */
+}
+
+.hd_bg.active {
+    top: 50%; /* active 클래스가 추가되면 화면 중앙으로 이동 */
+    height: 50%; /* active 클래스가 추가되면 높이를 50%로 변경하여 나타나게 함 */
+}
+
+
+
