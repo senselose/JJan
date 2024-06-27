@@ -1,18 +1,22 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Carousel from './components/Carousel';
+import SearchResultPage from './components/SearchResultPage';
+import SearchPage from './components/SearchPage';
 import './App.css';
 
 const App = () => {
   return (
-    <div>
-      <Header />
-      <Carousel />
-      <div className="main-content">
-        <h2>메인 페이지 내용</h2>
-        <p>이곳에 메인 페이지의 내용을 추가합니다.</p>
+    <Router>
+      <div>
+        <Header />
+        <Carousel />
+        <div className="main-content">
+          
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
