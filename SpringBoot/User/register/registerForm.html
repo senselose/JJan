@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 폼</title>
+</head>
+<body>
+	<h1>회원가입</h1>
+		<form method="post" action="/registerSuccess">
+		<table>
+			<tr>
+				<td>아이디 :</td>
+			</tr>
+			<tr>
+				<td><input type="text" id="userId" name="userId"></td>
+			</tr>
+			<tr>
+				<td>비밀번호 :</td>
+			</tr>
+			<tr>
+				<td><input type="password" id="userPassword"
+					name="userPassword"></td>
+			</tr>
+			<tr>
+				<td>이름 :</td>
+			</tr>
+			<tr>
+				<td><input type="text" id="userName" name="userName"></td>
+			</tr>
+			<tr>
+				<td>닉네임 :</td>
+			</tr>
+			<tr>
+				<td><input type="text" id="userNickName" name="userNickName"></td>
+			</tr>
+			<tr>
+				<td>이메일 :</td>
+			</tr>
+			<tr>
+				<td><input type="text" id="userEmail" name="userEmail"> @
+					<select>
+						<option>naver.com</option>
+						<option>gmail.com</option>
+						<option>daum.net</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>생년월일 :</td>
+			</tr>
+			<tr>
+				<td><input type="date" id="userBirth" name="userBirth"></td>
+			</tr>
+			<tr>
+				<td>전화번호 :</td>
+			</tr>
+			<tr>
+				<td><input type="tel" id="userPhoneNum_1" name="userPhoneNum_1" maxlength="3">
+					- <input type="tel" id="userPhoneNum_2" name="userPhoneNum_2" maxlength="4">
+					- <input type="tel" id="userPhoneNum_3" name="userPhoneNum_3" maxlength="4">
+				</td>
+			</tr>
+		</table>
+		<hr/>
+		<input type="submit" value="회원가입">
+	</form> &nbsp; 
+	<form action="/index" method="get">
+		<input type="submit" value="홈으로">
+	</form>
+</body>
+</html>
