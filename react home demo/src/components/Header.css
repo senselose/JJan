@@ -188,3 +188,25 @@ a {
 .detail-list-container h4 {
     margin-bottom: 10px;
 }
+
+.search-results {
+    margin-top: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .recent-keywords {
+    margin-bottom: 20px;
+  }
+  
+  .keyword-lists {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .keyword-lists > div {
+    width: 48%;
+  }
+  

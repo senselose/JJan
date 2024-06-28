@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Header.css';
-import $ from 'jquery';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import DetailList from './DetailList';
 
 const Header = () => {
   const [userInput, setUserInput] = useState('');
   const [trendingList, setTrendingList] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  const [recentKeywords, setRecentKeywords] = useState([]);
   const [showPopularSearch, setShowPopularSearch] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Header = () => {
   useEffect(() => {
     setTrendingList(['위스키1', '위스키2', '위스키3', '위스키4', '위스키5']);
     setRecommendations(['맥주1', '맥주2', '맥주3', '맥주4', '맥주5']);
+    fetchRecentKeywords();
 
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -30,39 +32,14 @@ const Header = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const gnb = $('#gnb');
-    const hdBg = $('.hd_bg');
-
-    gnb.mouseenter(() => {
-      $('.inner_menu').fadeIn(1000);
-      const menuHeight = $('#header').outerHeight();
-      const inmeHeight = $('.inner_menu').outerHeight();
-      hdBg.css({
-        top: `${menuHeight}px`,
-        height: `${inmeHeight}px`,
-      });
-
-      hdBg.addClass('active').animate({
-        top: '50%',
-      }, 300);
-    });
-
-    gnb.mouseleave(() => {
-      $('.inner_menu').hide();
-      hdBg.css('height', '0');
-      hdBg.removeClass('active');
-    });
-
-    $('.dept1').mouseenter(function () {
-      $(this).children().addClass('active');
-      $(this).siblings().children().removeClass('active');
-    });
-
-    $('.dept1').mouseleave(function () {
-      $(this).children().removeClass('active');
-    });
-  }, []);
+  const fetchRecentKeywords = async () => {
+    try {
+      const response = await axios.get('/api/search/recent');
+      setRecentKeywords(response.data);
+    } catch (error) {
+      console.error('Failed to fetch recent keywords:', error);
+    }
+  };
 
   const handleInputClick = () => {
     setShowPopularSearch(true);
@@ -79,9 +56,17 @@ const Header = () => {
     setShowPopularSearch(value === '');
   };
 
-  const handleSearchClick = () => {
-    console.log('검색: ', userInput);
-    navigate(`/search/${userInput}`);
+  const handleSearchClick = async () => {
+    try {
+      await axios.post('/api/search', null, { params: { keyword: userInput } });
+      fetchRecentKeywords(); // 검색어 저장 후 최근 검색어 목록 갱신
+      navigate(`/search/${userInput}`);
+      setShowPopularSearch(false);
+      setIsSearchActive(false);
+      setUserInput('');
+    } catch (error) {
+      console.error('Failed to save keyword:', error);
+    }
   };
 
   const handleKeyPress = (event) => {
@@ -156,7 +141,17 @@ const Header = () => {
 
         {showPopularSearch && (
           <div className="search-results">
-            <div className="detail-list-container">
+            <div className="recent-keywords">
+              <h3>최근 검색어</h3>
+              <ul>
+                {recentKeywords.map((item) => (
+                  <li key={item.id} onClick={() => handleItemClick(item.keyword)}>
+                    {item.keyword}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="keyword-lists">
               <DetailList
                 list={trendingList}
                 onItemClick={handleItemClick}
@@ -180,6 +175,6 @@ const Header = () => {
       <div className="hd_bg"></div>
     </div>
   );
-}
+};
 
 export default Header;
