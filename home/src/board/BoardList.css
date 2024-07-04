@@ -1,0 +1,69 @@
+.board-list-container {
+  display: flex;
+}
+
+.board-list {
+  width: 20%;
+  min-width: 200px;
+  margin-right: 20px;
+  position: sticky;
+  top: 50%;
+  transform: translateY(-50%);
+  height: fit-content; /* height 변경 */
+  overflow-y: auto;
+}
+
+.board-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-content .table-container {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+}
+
+.create-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-box {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.pagination-create-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.category-link, .board-link {
+  text-decoration: none;
+}
+
+.board-title-container {
+  display: flex;
+  align-items: center; /* 중앙 정렬 */
+}
+
+.image-icon, .comment-count {
+  margin-left: 8px;
+  display: flex;
+  align-items: center; /* 중앙 정렬 */
+}
+
+.MuiContainer-root {
+  max-width: 90% !important; /* 너비를 90%로 설정 */
+  padding-left: 0 !important; /* 좌측 패딩 제거 */
+  padding-right: 0 !important; /* 우측 패딩 제거 */
+}
