@@ -5,9 +5,10 @@ import Header from './components/Header/Header';
 import Carousel from './components/Carousel/Carousel';
 import SearchResultPage from './components/Header/SearchResultPage';
 import SearchPage from './components/Header/SearchPage';
-import Footer from './components/Footer/Footer';
+// import Footer from './components/Footer/Footer';
 import LoginForm from './components/LoginHead/LoginForm/LoginForm';
 import './App.css';
+import Footer from './components/Footer';
 
 
 const App = () => {
