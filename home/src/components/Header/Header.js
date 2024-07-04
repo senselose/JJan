@@ -104,44 +104,38 @@ const Header = () => {
       </li>
       <ul id="gnb">
         <li className="dept1">
-        <a onClick={() => navigate('/filtersearch')}>필터 검색</a>
+        <a onClick={() => navigate('/filtersearch')}>맞춤 추천</a>
           <ul className="inner_menu">
-            <li className="dept2"><a onClick={() => navigate('/MultiFilters')}>메뉴1</a></li>
+            <li className="dept2"><a onClick={() => navigate('/MultiFilters')}></a></li>
             <li className="dept2"><a href="#">메뉴1</a></li>
             <li className="dept2"><a href="#">메뉴1</a></li>
             <li className="dept2"><a href="#">메뉴1</a></li>
           </ul>
         </li>
         <li className="dept1">
-          <a href="#">가나다</a>
+          <a href="#">커뮤니티</a>
           <ul className="inner_menu">
-            <li className="dept2"><a href="#">메뉴2</a></li>
-            <li className="dept2"><a href="#">메뉴2</a></li>
-            <li className="dept2"><a href="#">메뉴2</a></li>
-            <li className="dept2"><a href="#">메뉴2</a></li>
+            <li className="dept2"><a href="#">정보 게시판</a></li>
+            <li className="dept2"><a href="#">나눔 게시판</a></li>
+            <li className="dept2"><a href="#">장터 게시판</a></li>
+            <li className="dept2"><a href="#">정보 게시판</a></li>
           </ul>
         </li>
         <li className="dept1">
-          <a href="#">가나다</a>
+          <a href="#">위스키</a>
           <ul className="inner_menu">
-            <li className="dept2"><a href="#">메뉴3</a></li>
-            <li className="dept2"><a href="#">메뉴3</a></li>
-            <li className="dept2"><a href="#">메뉴3</a></li>
+            <li className="dept2"><a href="#">몰트 위스키</a></li>
+            <li className="dept2"><a href="#">블랜디드 위스키</a></li>
+            <li className="dept2"><a href="#">버번 위스키</a></li>
+            <li className="dept2"><a href="#">리큐르(수정해야함)</a></li>
           </ul>
         </li>
         <li className="dept1">
-          <a href="#">가나다</a>
+          <a href="#">공지사항</a>
           <ul className="inner_menu">
-            <li className="dept2"><a href="#">메뉴4</a></li>
-            <li className="dept2"><a href="#">메뉴4</a></li>
-            <li className="dept2"><a href="#">메뉴4</a></li>
-          </ul>
-        </li>
-        <li className="dept1">
-          <a href="#">가나다</a>
-          <ul className="inner_menu">
-            <li className="dept2"><a href="#">메뉴5</a></li>
-            <li className="dept2"><a href="#">메뉴5</a></li>
+            <li className="dept2">행사 정보<a href="#"></a></li>
+            <li className="dept2">중요 공지<a href="#"></a></li>
+            <li className="dept2">필독 공지<a href="#"></a></li>
           </ul>
         </li>
       </ul>

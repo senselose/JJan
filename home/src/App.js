@@ -39,3 +39,42 @@ const App = () => {
 }
 
 export default App;
+
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+// import { AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/material';
+// import BoardList from './components/board/BoardList';
+// import BoardDetail from './components/board/BoardDetail';
+// // import BoardForm from './components/BoardForm';
+// import './App.css';
+// import BoardCreate from './components/board/BoardCreate';
+
+// const App = () => {
+//   return (
+//     <Router>
+//       <div>
+//         <AppBar position="static">
+//           <Toolbar>
+//             <Typography variant="h6" className="title">
+//               Board App
+//             </Typography>
+//             <Button color="inherit" component={Link} to="/boards">Board List</Button>
+//             <Button color="inherit" component={Link} to="/board-create">Board Create</Button>
+//           </Toolbar>
+//         </AppBar>
+//         <Container>
+//           <Box my={4}>
+//             <Routes>
+//               <Route path="/" element={<BoardList />} />
+//               <Route path="/boards" element={<BoardList />} />
+//               <Route path="/board/:id" element={<BoardDetail />} />
+//               <Route path="/board-create" element={<BoardCreate />} />
+//             </Routes>
+//           </Box>
+//         </Container>
+//       </div>
+//     </Router>
+//   );
+// };
+
+// export default App;
