@@ -1,41 +1,12 @@
-.search-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #ccc;
+.title {
+  flex-grow: 1;
 }
 
-.search-input {
-  display: flex;
-  gap: 10px;
+nav a {
+  text-decoration: none;
+  color: inherit;
 }
 
-.detail-list-container {
-  display: flex;
-  gap: 20px; /* 각 목록 사이의 간격 */
-}
-
-.detail-list {
-  flex: 1; /* 동일한 너비로 설정 */
-}
-
-.list-title {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  cursor: pointer;
-  padding: 5px 0;
-  transition: background-color 0.3s;
-}
-
-li:hover {
-  background-color: #f0f0f0;
+nav a:hover {
+  text-decoration: underline;
 }

@@ -1,0 +1,98 @@
+/* 전체 레이아웃 설정 */
+.board-list-container {
+  display: flex;
+  align-items: flex-start; /* 모든 아이템을 상단에 정렬 */
+  padding: 20px; /* 여백 추가 */
+  padding-right: 100px;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+  width: 200px; /* 사이드바의 너비 설정 */
+  margin-right: 20px; /* 오른쪽 여백 추가 */
+  flex-shrink: 0; /* 사이드바가 줄어들지 않도록 설정 */
+}
+
+/* 콘텐츠 스타일 */
+.content {
+  flex-grow: 1; /* 남은 공간을 차지 */
+  padding-left: 20px; /* 왼쪽 여백 추가 */
+}
+
+/* 검색 박스 스타일 */
+.search-box {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+/* 검색 입력 필드 스타일 */
+.search-box .MuiTextField-root {
+  flex-grow: 1;
+  margin-right: 10px; /* 오른쪽 여백 추가 */
+}
+
+/* 로딩 박스 스타일 */
+.loading-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* 게시글 테이블 스타일 */
+.board-table {
+  min-width: 650px;
+}
+
+/* 테이블 헤더 스타일 */
+.board-table-header .MuiTableCell-root {
+  font-weight: bold;
+}
+
+/* 아이콘 스타일 */
+.icon {
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+/* 이미지 아이콘 위치 조정 */
+.image-icon {
+  margin-top: -4px;
+}
+
+/* 댓글 아이콘 위치 조정 */
+.comment-icon {
+  margin-top: -4px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 페이지네이션 컨테이너 스타일 */
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* 페이지네이션을 가운데 정렬 */
+.pagination-container .MuiPagination-root {
+  margin: 0 auto;
+}
+
+/* 게시글 작성 버튼 스타일 */
+.create-button {
+  margin-left: auto;
+}
+
+/* 게시글 링크의 밑줄을 없앰 */
+.board-table a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 게시글 링크에 마우스를 올렸을 때 스타일 */
+.board-table a:hover {
+  text-decoration: underline;
+  color: blue;
+}
