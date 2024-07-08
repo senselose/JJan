@@ -3,23 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/free-brands-svg-icons": "^6.5.2",
-    "@fortawesome/react-fontawesome": "^0.2.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.21",
+    "@mui/material": "^5.15.21",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^29.5.12",
-    "@types/node": "^20.14.9",
+    "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
-    "dotenv": "^16.4.5",
     "jquery": "^3.7.1",
+    "lodash.debounce": "^4.0.8",
+    "maven": "^5.0.0",
     "react": "^18.3.1",
+    "react-cookie": "^7.1.4",
     "react-dom": "^18.3.1",
-    "react-kakao-login": "^2.1.1",
+    "react-js-pagination": "^3.0.3",
+    "react-paginate": "^8.2.0",
     "react-router-dom": "^6.24.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "proxy": "http://localhost:8080",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -43,10 +48,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "typescript": "^5.5.3"
   }
 }

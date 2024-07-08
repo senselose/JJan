@@ -1,45 +1,44 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginHead from './components/LoginHead/LoginHead';
-import Header from './components/Header/Header';
 import Carousel from './components/Carousel/Carousel';
-import SearchResultPage from './components/Header/SearchResultPage';
-import SearchPage from './components/Header/SearchPage';
-// import Footer from './components/Footer/Footer';
-import LoginForm from './components/LoginHead/LoginForm/LoginForm';
+// import SearchResultPage from './components/Header/SearchResultPage';
+// import SearchPage from './components/Header/SearchPage';
 import './App.css';
-import Footer from './components/Footer';
+import Container from './layout/Container';
+import {MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH} from './constant'
+import Authentication from './views/Authentication';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import User from './views/User';
 
 
-const App = () => {
-  return (
-    <Router>
-      <div>
-        <LoginHead />
-        <Header />
+// const App = () => {
+//   return (
+//     <Router>
+//       <div>
+//         <LoginHeader />
+//         <Header />
         
-        <div className="main-content">
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Carousel />
-                <h1>--</h1>
-                <h2>메인 페이지 내용</h2>
-                <p>이곳에 메인 페이지의 내용을 추가합니다.</p>
+//         <div className="main-content">
+//           <Routes>
+//             <Route path="/" element={
+//               <>
+//                 <Carousel />
+//                 <h1>--</h1>
+//                 <h2>메인 페이지 내용</h2>
+//                 <p>이곳에 메인 페이지의 내용을 추가합니다.</p>
                 
-              </>
-            } />
-            <Route path="/login" element={<LoginForm />} />
+//               </>
+//             } />
+//             <Route path="/login" element={<LoginForm />} />
 
-          </Routes>
-        </div>
-        <Footer />
-      </div>
-    </Router>
-  );
-}
+//           </Routes>
+//         </div>
+//         <Footer />
+//       </div>
+//     </Router>
+//   );
+// }
 
-export default App;
+// export default App;
 
 // import React from 'react';
 // import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
@@ -66,7 +65,6 @@ export default App;
 //         <Container>
 //           <Box my={4}>
 //             <Routes>
-//               <Route path="/" element={<BoardList />} />
 //               <Route path="/boards" element={<BoardList />} />
 //               <Route path="/board/:id" element={<BoardDetail />} />
 //               <Route path="/board-create" element={<BoardCreate />} />
@@ -79,3 +77,21 @@ export default App;
 // };
 
 // export default App;
+
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Container>
+        <Routes>
+          <Route path={MAIN_PATH()} element={<Carousel />} />
+          <Route path={AUTH_PATH()} element={<Authentication />} />
+          {/* <Route path={SEARCH_PATH()} element={} /> */}
+          <Route path={USER_PATH()} element={<User />} />
+        </Routes>
+      </Container>
+    </BrowserRouter>
+  );
+}
+
+export default App;
