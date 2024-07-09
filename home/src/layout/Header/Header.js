@@ -123,7 +123,7 @@ const Header = () => {
           </ul>
         </li>
         <li className="dept1">
-          <a href="#">커뮤니티</a>
+          <a onClick={() => navigate('/board')}>커뮤니티</a>
           <ul className="inner_menu">
             <li className="dept2"><a href="#">정보 게시판</a></li>
             <li className="dept2"><a href="#">나눔 게시판</a></li>

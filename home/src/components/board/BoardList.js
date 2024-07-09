@@ -1,132 +1,114 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import BoardService from '../../api/BoardService';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import {
   Container, Table, TableBody, TableCell, TableHead, TableRow, CircularProgress,
   Box, Paper, TableContainer, TextField, Button, Grid, List, ListItem, ListItemText, Typography,
-  FormControl, InputLabel, Select, MenuItem
+  FormControl, InputLabel, Select, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions
 } from '@mui/material';
-import { Image } from '@mui/icons-material'; // 이미지 아이콘 import
+import { Image } from '@mui/icons-material';
+import LoginForm from '../login/LoginForm';
 import './BoardList.css';
 
 const BoardList = () => {
-  const [boards, setBoards] = useState([]); // 게시글 데이터를 저장하는 상태
-  const [loading, setLoading] = useState(true); // 로딩 상태
-  const [page, setPage] = useState(1); // 현재 페이지 번호
-  const [totalPages, setTotalPages] = useState(0); // 총 페이지 수
-  const [keyword, setKeyword] = useState(''); // 검색 키워드
-  const [searchOption, setSearchOption] = useState('title'); // 검색 옵션
-  const [selectedCategory, setSelectedCategory] = useState('전체 게시판'); // 선택된 카테고리
-  const pageSize = 15; // 페이지 당 게시글 수
-  const location = useLocation(); // 게시글 작성 후 첫 페이지로 이동하기 위해 location 사용
-  const navigate = useNavigate(); // 페이지 이동을 위해 useNavigate 사용
+  const { category } = useParams();
+  const [boards, setBoards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [keyword, setKeyword] = useState('');
+  const [searchOption, setSearchOption] = useState('title');
+  const [selectedCategory, setSelectedCategory] = useState(category || '전체 게시판');
+  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem('token'));
+  const [showLoginDialog, setShowLoginDialog] = useState(false);
+  const pageSize = 15;
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const boardList = document.querySelector('.board-list');
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
-      const boardListHeight = boardList.offsetHeight;
-
-      if (scrollTop + windowHeight / 2 > boardListHeight / 2) {
-        boardList.style.top = `${scrollTop + windowHeight / 2 - boardListHeight / 2}px`;
-      } else {
-        boardList.style.top = '0';
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  // 게시글 데이터를 가져오는 함수
   const fetchBoards = useCallback(() => {
-    setLoading(true); // 로딩 상태를 true로 설정
+    setLoading(true);
     BoardService.getBoards(page - 1, pageSize).then((response) => {
-      setBoards(response.data.content); // 게시글 데이터를 설정
-      setTotalPages(response.data.totalPages); // 총 페이지 수를 설정
-      setLoading(false); // 로딩 상태를 false로 설정
+      setBoards(response.data.content);
+      setTotalPages(response.data.totalPages);
+      setLoading(false);
     }).catch((error) => {
       console.error('게시글 데이터를 불러오는 중 에러 발생!', error);
-      setLoading(false); // 에러 발생 시 로딩 상태를 false로 설정
+      setLoading(false);
     });
   }, [page]);
 
-  // 선택된 카테고리에 따른 게시글 데이터를 가져오는 함수
   const fetchBoardsByCategory = useCallback((category) => {
-    setLoading(true); // 로딩 상태를 true로 설정
+    setLoading(true);
     BoardService.getBoardsByCategory(category, page - 1, pageSize).then((response) => {
-      setBoards(response.data.content); // 게시글 데이터를 설정
-      setTotalPages(response.data.totalPages); // 총 페이지 수를 설정
-      setLoading(false); // 로딩 상태를 false로 설정
+      setBoards(response.data.content);
+      setTotalPages(response.data.totalPages);
+      setLoading(false);
     }).catch((error) => {
       console.error('카테고리별 게시글 데이터를 불러오는 중 에러 발생!', error);
-      setLoading(false); // 에러 발생 시 로딩 상태를 false로 설정
+      setLoading(false);
     });
   }, [page]);
 
-  // 검색 핸들러
   const handleSearch = useCallback(() => {
-    setLoading(true); // 로딩 상태를 true로 설정
+    setLoading(true);
     if (searchOption === 'title') {
       BoardService.searchBoardsByTitle(keyword, page - 1, pageSize).then((response) => {
-        setBoards(response.data.content); // 검색 결과를 설정
-        setTotalPages(response.data.totalPages); // 총 페이지 수를 설정
-        setLoading(false); // 로딩 상태를 false로 설정
+        setBoards(response.data.content);
+        setTotalPages(response.data.totalPages);
+        setLoading(false);
       }).catch((error) => {
         console.error('검색 중 에러 발생!', error);
-        setLoading(false); // 에러 발생 시 로딩 상태를 false로 설정
+        setLoading(false);
       });
     } else {
       BoardService.searchBoardsByTitleAndContent(keyword, page - 1, pageSize).then((response) => {
-        setBoards(response.data.content); // 검색 결과를 설정
-        setTotalPages(response.data.totalPages); // 총 페이지 수를 설정
-        setLoading(false); // 로딩 상태를 false로 설정
+        setBoards(response.data.content);
+        setTotalPages(response.data.totalPages);
+        setLoading(false);
       }).catch((error) => {
         console.error('검색 중 에러 발생!', error);
-        setLoading(false); // 에러 발생 시 로딩 상태를 false로 설정
+        setLoading(false);
       });
     }
   }, [keyword, page, pageSize, searchOption]);
 
-  // Enter 키를 눌렀을 때 검색을 실행하는 함수
   const onSearchWordKeyDownHandler = (event) => {
     if (event.key !== 'Enter') return;
     handleSearch();
   };
 
-  // 카테고리 선택 핸들러
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setPage(1); // 카테고리 선택 시 페이지를 1로 설정
+    setPage(1);
+    navigate(`/board/${category}`);
   };
 
-  // 페이지 변경 핸들러
   const handlePageChange = (event, value) => {
     setPage(value);
   };
 
-  // 게시글 클릭 핸들러
-  const handleBoardClick = (boardSeq) => {
-    BoardService.incrementViews(boardSeq)
-      .then(() => {
-        navigate(`/board/${boardSeq}`, { state: { category: selectedCategory } });
-      })
-      .catch(error => {
-        console.error('조회수 증가 중 에러 발생!', error);
-        navigate(`/board/${boardSeq}`, { state: { category: selectedCategory } }); // 에러가 발생해도 상세 페이지로 이동
-      });
-  };
-
-  // 게시글 생성 페이지로 이동
   const handleCreate = () => {
-    navigate('/board-create');
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      setShowLoginDialog(true);
+      return;
+    }
+    navigate('/board/write');
   };
 
-  // 카테고리 앞글자만 가져오는 함수
+  const handleLogout = () => {
+    sessionStorage.removeItem('token');
+    setIsLoggedIn(false);
+    alert('로그아웃 되었습니다.');
+  };
+
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+    setShowLoginDialog(false);
+  };
+
   const getCategoryAbbreviation = (category) => {
     switch (category) {
       case '자유 게시판':
@@ -142,25 +124,23 @@ const BoardList = () => {
     }
   };
 
-  // 카테고리 또는 페이지가 변경될 때마다 게시글을 다시 가져오는 useEffect
   useEffect(() => {
-    if (selectedCategory === '전체 게시판') {
+    if (selectedCategory === '전체 게시판' || !selectedCategory) {
       fetchBoards();
     } else {
       fetchBoardsByCategory(selectedCategory);
     }
   }, [fetchBoards, fetchBoardsByCategory, selectedCategory, page]);
 
-  // 새 게시글 작성 후 페이지를 1로 설정하는 useEffect
   useEffect(() => {
     if (location.state && location.state.newBoard) {
-      setPage(1); // 새 게시글 작성 시 페이지를 1로 설정
+      setPage(1);
     }
   }, [location]);
 
   return (
     <Box display="flex" className="board-list-container">
-      <Box className="board-list">
+      <Box className="board-list" position="fixed" width="20%"> {/* 고정 위치와 너비 설정 */}
         <Paper>
           <Typography variant="h6" style={{ padding: '14px' }}>게시판 목록</Typography>
           <List>
@@ -172,9 +152,9 @@ const BoardList = () => {
           </List>
         </Paper>
       </Box>
-      <Container className="board-content" maxWidth={false} disableGutters>
+      <Container className="board-content" maxWidth={false} disableGutters style={{ marginLeft: '20%' }}>
         <Grid container spacing={10}>
-          <Grid item xs={20}>
+          <Grid item xs={12}>
             <Box mt={2}>
               <Typography variant="h5">{selectedCategory}</Typography>
             </Box>
@@ -212,7 +192,7 @@ const BoardList = () => {
                             <TableCell>{(page - 1) * pageSize + index + 1}</TableCell>
                           )}
                           <TableCell>
-                            <Link to="#" onClick={() => handleBoardClick(board.boardSeq)} className="board-link">
+                            <Link to={`/board/detail/${board.boardSeq}`} className="board-link"> {/* 여기 경로를 수정 */}
                               <Box className="board-title-container">
                                 [{getCategoryAbbreviation(board.boardCategory)}] {board.boardTitle}
                                 {board.boardImage && <Image className="icon image-icon" />}
@@ -251,6 +231,27 @@ const BoardList = () => {
                     >
                       게시글 작성
                     </Button>
+                    {isLoggedIn ? (
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleLogout}
+                        className="create-button"
+                        style={{ marginLeft: '10px' }}
+                      >
+                        로그아웃
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setShowLoginDialog(true)}
+                        className="create-button"
+                        style={{ marginLeft: '10px' }}
+                      >
+                        로그인
+                      </Button>
+                    )}
                   </Box>
                 </Box>
                 <Box className="search-box" mt={2}>
@@ -270,7 +271,7 @@ const BoardList = () => {
                     variant="outlined"
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}
-                    onKeyDown={onSearchWordKeyDownHandler} // Enter 키 핸들러 추가
+                    onKeyDown={onSearchWordKeyDownHandler}
                     fullWidth
                   />
                   <Button
@@ -287,6 +288,15 @@ const BoardList = () => {
           </Grid>
         </Grid>
       </Container>
+      <Dialog open={showLoginDialog} onClose={() => setShowLoginDialog(false)}>
+        <DialogTitle>로그인</DialogTitle>
+        <DialogContent>
+          <LoginForm onLogin={handleLoginSuccess} /> {/* onLogin을 handleLoginSuccess로 수정 */}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowLoginDialog(false)} color="primary">닫기</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

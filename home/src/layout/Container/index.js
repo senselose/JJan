@@ -1,13 +1,13 @@
 // Container.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import LoginHeader from '../LoginHeader/LoginHeader';
 import Header from '../Header/Header';
 import Footer from '../Footer';
 
-const Container = ({ children }) => {
+const Container = ({ children, isLoggedIn, setIsLoggedIn }) => {
   return (
     <>
-      <LoginHeader />
+      <LoginHeader isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Header />
       <div className="main-content">
         {children}

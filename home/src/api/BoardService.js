@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/api/boards';
+const API_BASE_URL = 'http://localhost:8080/api/board';
 
 const getBoards = (page, size) => {
   return axios.get(`${API_BASE_URL}?page=${page}&size=${size}`);

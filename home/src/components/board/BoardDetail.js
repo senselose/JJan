@@ -208,7 +208,7 @@ const BoardDetail = () => {
         </form>
       </Paper>
       <Box display="flex" justifyContent="flex-start" mt={2}>
-        <Button variant="contained" color="primary" component={Link} to="/boards" state={{ category: location.state?.category }} style={{ marginRight: '10px' }}>
+        <Button variant="contained" color="primary" component={Link} to="/board" state={{ category: location.state?.category }} style={{ marginRight: '10px' }}>
           글 목록
         </Button>
         <Button variant="contained" color="secondary" onClick={handleDeleteBoard}>

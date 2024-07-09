@@ -1,43 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from './components/Carousel/Carousel';
 // import SearchResultPage from './components/Header/SearchResultPage';
 // import SearchPage from './components/Header/SearchPage';
 import './App.css';
 import Container from './layout/Container';
-import {MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH} from './constant'
+import {MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH} from './constant'
 import Authentication from './views/Authentication';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import User from './views/User';
-
-
-// const App = () => {
-//   return (
-//     <Router>
-//       <div>
-//         <LoginHeader />
-//         <Header />
-        
-//         <div className="main-content">
-//           <Routes>
-//             <Route path="/" element={
-//               <>
-//                 <Carousel />
-//                 <h1>--</h1>
-//                 <h2>메인 페이지 내용</h2>
-//                 <p>이곳에 메인 페이지의 내용을 추가합니다.</p>
-                
-//               </>
-//             } />
-//             <Route path="/login" element={<LoginForm />} />
-
-//           </Routes>
-//         </div>
-//         <Footer />
-//       </div>
-//     </Router>
-//   );
-// }
-
+import BoardList from './components/board/BoardList';
+import RegisterForm from './components/login/RegisterForm';
+import LoginForm from './components/login/LoginForm';
+import BoardDetail from './components/board/BoardDetail'; 
+import LoginSuccess from './components/login/LoginSuccess';
+import LoginFail from './components/login/LoginFail';
+import LoginHeader from './layout/LoginHeader/LoginHeader';
+import BoardCreate from './components/board/BoardCreate';
 // export default App;
 
 // import React from 'react';
@@ -80,13 +58,29 @@ import User from './views/User';
 
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <BrowserRouter>
-      <Container>
+      <Container isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
         <Routes>
+          <Route path='/login' element={<LoginForm setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path='/register' element={<RegisterForm />} />
+          <Route path='/board' element={<BoardList />} />
+          <Route path='/board/:category' element={<BoardList />} />
+          <Route path='/board/write' element={<BoardCreate />} />
+          <Route path='/board/detail/:id' element={<BoardDetail />} />
+          <Route path='/loginsucess' element={<LoginSuccess />} />
+          <Route path='/loginfail' element={<LoginFail />} />
           <Route path={MAIN_PATH()} element={<Carousel />} />
           <Route path={AUTH_PATH()} element={<Authentication />} />
-          {/* <Route path={SEARCH_PATH()} element={} /> */}
           <Route path={USER_PATH()} element={<User />} />
         </Routes>
       </Container>

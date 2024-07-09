@@ -1,48 +1,32 @@
-import React, { useState } from "react";
-import axios from "axios";
+// LoginForm.js
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginForm.css';
+import axios from 'axios';
 
-function LoginForm ({ onLogin }) {
+const LoginForm = ({ setIsLoggedIn }) => {
     const [userId, setUserId] = useState('');
-    const [userPassword, setUserPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    function handleLogin(e) {
+    const handleLogin = async (e) => {
         e.preventDefault();
-
-        axios.post('/login', { userId: userId, userPassword: userPassword })
-            .then(response => {
-                sessionStorage.setItem('userId', userId);
-                onLogin();
-                navigate('/loginSuccess'); // 로그인 성공 시
-            })
-            .catch(error => {
-                setMessage('로그인 실패');
-                navigate('/loginFail'); // 로그인 실패 시
-            });
-    }
+        try {
+            const response = await axios.post('/api/auth/login', { userId, password });
+            localStorage.setItem('token', response.data.token);
+            setIsLoggedIn(true);
+            navigate('/');
+        } catch (error) {
+            alert('로그인 실패');
+        }
+    };
 
     return (
-        <div className="LoginForm">
-            <h1>로그인</h1>
-            <form onSubmit={handleLogin}>
-                <label>
-                    사용자 ID:
-                    <input type="text" value={userId} onChange={e => setUserId(e.target.value)} />
-                </label>
-                <br/>
-                <label>
-                    비밀번호:
-                    <input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} />
-                </label>
-                <br/>
-                <button type="submit">로그인</button>
-            </form>
-            <p>{message}</p>
-        </div>
-    )
-}
+        <form onSubmit={handleLogin}>
+            <input type="text" value={userId} onChange={(e) => setUserId(e.target.value)} placeholder="아이디" />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호" />
+            <button type="submit">로그인</button>
+        </form>
+    );
+};
 
 export default LoginForm;
