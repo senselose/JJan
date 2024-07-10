@@ -5,6 +5,7 @@ import axios from 'axios';
 const LoginForm = ({ setIsLoggedIn }) => {
     const [userId, setUserId] = useState('');
     const [userPassword, setUserPassword] = useState(''); // 변수명 변경: setuserPassword -> setUserPassword
+    
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
@@ -12,6 +13,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
         try {
             const response = await axios.post('/api/auth/login', { userId, userPassword });
             localStorage.setItem('jwtToken', response.data.token); // 로컬 스토리지 키 이름을 통일
+            localStorage.setItem('token', response.data.token);
             setIsLoggedIn(true);
             navigate('/');
         } catch (error) {

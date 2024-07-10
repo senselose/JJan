@@ -19,6 +19,9 @@ import BoardCreate from './components/board/BoardCreate';
 import WhiskyEvents from './components/WhiskyEvent/WhiskyEvents';
 import MyPage from './components/mypage/MyPage';
 import {MAIN_PATH, AUTH_PATH, USER_PATH} from './constant'
+import BoardCreate from './components/board/BoardCreate';
+import ProtectedRoute from './stores/ProtectRoute';
+import BoardUpdate from './components/board/BoardUpdate';
 // export default App;
 
 // import React from 'react';
@@ -87,9 +90,17 @@ const App = () => {
           <Route path={USER_PATH()} element={<User />} />
           <Route path='/whisky/events' element={<WhiskyEvents />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path='/board/write' element={<BoardCreate />} />
+          <Route path='/board' element={<BoardList />} />
+          <Route path='/board/:category' element={<BoardList />} />
+          <Route path="/board/detail/:seq" element={<BoardDetail />} /> 
+          <Route path='/board/update/:seq' element={<BoardUpdate />} />
         </Routes>
       </Container>
     </BrowserRouter>
+
+
+
   );
 }
 

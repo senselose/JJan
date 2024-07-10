@@ -1,5 +1,14 @@
 .board-list-container {
   display: flex;
+  font-size: 16px; /* 기본 글꼴 크기 */
+}
+
+.table-container .MuiTableCell-root {
+  font-size: 18px; /* 게시글 테이블 글꼴 크기 */
+}
+
+.comments-container {
+  font-size: 18px; /* 댓글 글꼴 크기 */
 }
 
 .board-list {
@@ -7,10 +16,10 @@
   min-width: 200px;
   margin-right: 20px;
   position: sticky;
-  top: 50%;
-  transform: translateY(-50%);
-  height: fit-content; /* height 변경 */
+  top: 70px; /* 헤더 높이를 고려하여 조정 */
+  height: calc(100vh - 70px); /* 헤더 높이를 고려하여 조정 */
   overflow-y: auto;
+  font-size: 18px; /* 게시판 목록 글꼴 크기 */
 }
 
 .board-content {
@@ -27,17 +36,20 @@
 .pagination-container {
   display: flex;
   justify-content: center;
+  font-size: 18px; /* 페이징 글꼴 크기 */
 }
 
 .create-button-container {
   display: flex;
   justify-content: flex-end;
+  font-size: 18px; /* 게시글 작성 버튼 글꼴 크기 */
 }
 
 .search-box {
   margin-top: 16px;
   display: flex;
   align-items: center;
+  font-size: 18px; /* 검색 글꼴 크기 */
 }
 
 .pagination-create-container {
@@ -45,6 +57,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 16px;
+  font-size: 18px; /* 페이징 및 게시글 작성 버튼 글꼴 크기 */
 }
 
 .category-link, .board-link {
