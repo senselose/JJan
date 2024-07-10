@@ -4,7 +4,7 @@ import Carousel from './components/Carousel/Carousel';
 // import SearchPage from './components/Header/SearchPage';
 import './App.css';
 import Container from './layout/Container';
-import {MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH} from './constant'
+//import {MAIN_PATH, AUTH_PATH, SEARCH_PATH, USER_PATH, BOARD_PATH} from './constant'
 import Authentication from './views/Authentication';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import User from './views/User';
@@ -14,8 +14,11 @@ import LoginForm from './components/login/LoginForm';
 import BoardDetail from './components/board/BoardDetail'; 
 import LoginSuccess from './components/login/LoginSuccess';
 import LoginFail from './components/login/LoginFail';
-import LoginHeader from './layout/LoginHeader/LoginHeader';
+// import LoginHeader from './layout/LoginHeader/LoginHeader';
 import BoardCreate from './components/board/BoardCreate';
+import WhiskyEvents from './components/WhiskyEvent/WhiskyEvents';
+import MyPage from './components/mypage/MyPage';
+import {MAIN_PATH, AUTH_PATH, USER_PATH} from './constant'
 // export default App;
 
 // import React from 'react';
@@ -82,6 +85,8 @@ const App = () => {
           <Route path={MAIN_PATH()} element={<Carousel />} />
           <Route path={AUTH_PATH()} element={<Authentication />} />
           <Route path={USER_PATH()} element={<User />} />
+          <Route path='/whisky/events' element={<WhiskyEvents />} />
+          <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </Container>
     </BrowserRouter>

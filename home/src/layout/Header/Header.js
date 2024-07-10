@@ -143,7 +143,7 @@ const Header = () => {
         <li className="dept1">
           <a href="#">공지사항</a>
           <ul className="inner_menu">
-            <li className="dept2">행사 정보<a href="#"></a></li>
+            <li className="dept2"><a onClick={() => navigate('/whisky/events')}>행사정보</a></li>
             <li className="dept2">중요 공지<a href="#"></a></li>
             <li className="dept2">필독 공지<a href="#"></a></li>
           </ul>
