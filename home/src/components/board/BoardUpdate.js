@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BoardService from '../../api/BoardService';
 import {
   Container, TextField, Button, MenuItem, Select, InputLabel, FormControl, Box, Typography, Paper
 } from '@mui/material';
-import './BoardCreate.css';
+import './BoardUpdate.css';
 
-const BoardCreate = () => {
+const BoardUpdate = () => {
+  const { id } = useParams();
   const [board, setBoard] = useState({
     boardTitle: '',
     boardCategory: '',
-    boardViews: 0,
     boardContent: '',
   });
   const [image, setImage] = useState(null);
@@ -39,6 +39,23 @@ const BoardCreate = () => {
     }
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    const fetchBoard = async () => {
+      try {
+        const response = await BoardService.getBoardBySeq(id);
+        setBoard({
+          boardTitle: response.data.boardTitle,
+          boardCategory: response.data.boardCategory,
+          boardContent: response.data.boardContent,
+        });
+      } catch (error) {
+        console.error('Error fetching the board data!', error);
+      }
+    };
+
+    fetchBoard();
+  }, [id]);
+
   const handleChange = (e) => {
     setBoard({ ...board, [e.target.name]: e.target.value });
   };
@@ -47,7 +64,7 @@ const BoardCreate = () => {
     setImage(e.target.files[0]);
   };
 
-  const handleCreate = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
 
     if (!isLoggedIn) {
@@ -62,20 +79,20 @@ const BoardCreate = () => {
       profileImageUrl: user?.userProfileImage || null, // 로그인한 사용자의 프로필 이미지 사용
     };
 
-    BoardService.createBoard(boardData, image)
+    BoardService.updateBoard(id, boardData, image)
       .then(() => {
-        navigate('/board', { state: { newBoard: true } }); // 게시판 목록으로 리다이렉트
+        navigate(`/board/detail/${id}`); // 게시글 상세 페이지로 리다이렉트
       })
       .catch(error => {
-        console.error('Error creating the board!', error);
+        console.error('Error updating the board!', error);
       });
   };
 
   return (
-    <Container className="board-create-container">
+    <Container className="board-update-container">
       <Paper className="board-form-container" elevation={3}>
-        <Typography variant="h4" gutterBottom>게시글 작성</Typography>
-        <form onSubmit={handleCreate} encType="multipart/form-data">
+        <Typography variant="h4" gutterBottom>게시글 수정</Typography>
+        <form onSubmit={handleUpdate} encType="multipart/form-data">
           <Box my={2}>
             <FormControl fullWidth required>
               <InputLabel>카테고리</InputLabel>
@@ -121,7 +138,7 @@ const BoardCreate = () => {
             />
           </Box>
           <Box my={2} display="flex" justifyContent="left">
-            <Button type="submit" variant="contained" color="primary" style={{ width: '100px' }}>작성하기</Button>
+            <Button type="submit" variant="contained" color="primary" style={{ width: '100px' }}>수정하기</Button>
           </Box>
         </form>
       </Paper>
@@ -129,4 +146,4 @@ const BoardCreate = () => {
   );
 };
 
-export default BoardCreate;
+export default BoardUpdate;

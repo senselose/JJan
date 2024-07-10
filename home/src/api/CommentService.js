@@ -1,14 +1,21 @@
-// src/api/CommentService.js
 import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:8080/api/comments';
 
-const createComment = (comment) => {
-  return axios.post(API_BASE_URL, comment);
+axios.interceptors.request.use(request => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    request.headers.Authorization = `Bearer ${token}`;
+  }
+  return request;
+});
+
+const getCommentsByBoardSeq = (boardSeq) => {
+  return axios.get(`${API_BASE_URL}/board/${boardSeq}`);
 };
 
-const getCommentsByBoardId = (boardId) => {
-  return axios.get(`${API_BASE_URL}/board/${boardId}`);
+const createComment = (comment) => {
+  return axios.post(API_BASE_URL, comment);
 };
 
 const updateComment = (id, comment) => {
@@ -21,7 +28,7 @@ const deleteComment = (id) => {
 
 const CommentService = {
   createComment,
-  getCommentsByBoardId,
+  getCommentsByBoardSeq,
   updateComment,
   deleteComment,
 };

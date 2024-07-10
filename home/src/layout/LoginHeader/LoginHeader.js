@@ -1,11 +1,15 @@
 import React from 'react';
 import './LoginHeader.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginHeader = ({ isLoggedIn, setIsLoggedIn }) => {
+    const navigate = useNavigate();
+
     const handleLogout = () => {
         localStorage.removeItem('token');
         setIsLoggedIn(false);
+        alert('로그아웃 되었습니다.');
+        navigate('/');
     };
 
     return (
@@ -14,9 +18,9 @@ const LoginHeader = ({ isLoggedIn, setIsLoggedIn }) => {
             <div className="right-section">
                 {isLoggedIn ? (
                     <>
-                        <div className='right-section-login'><Link to="/mypage"><span>마이페이지</span></Link></div>
+                        <p onClick={handleLogout}><span>로그아웃</span></p>
                         <p>|</p>
-                        <p onClick={handleLogout}>로그아웃</p>
+                        <div className='right-section-login'><Link to="/mypage"><span>마이페이지</span></Link></div>
                     </>
                 ) : (
                     <>

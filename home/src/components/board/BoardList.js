@@ -20,9 +20,9 @@ const BoardList = () => {
   const [keyword, setKeyword] = useState('');
   const [searchOption, setSearchOption] = useState('title');
   const [selectedCategory, setSelectedCategory] = useState(category || '전체 게시판');
-  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem('token'));
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const [showLoginDialog, setShowLoginDialog] = useState(false);
-  const pageSize = 15;
+  const pageSize = 5;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -89,19 +89,13 @@ const BoardList = () => {
   };
 
   const handleCreate = () => {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (!token) {
       alert('로그인이 필요합니다.');
       setShowLoginDialog(true);
       return;
     }
     navigate('/board/write');
-  };
-
-  const handleLogout = () => {
-    sessionStorage.removeItem('token');
-    setIsLoggedIn(false);
-    alert('로그아웃 되었습니다.');
   };
 
   const handleLoginSuccess = () => {
@@ -140,7 +134,7 @@ const BoardList = () => {
 
   return (
     <Box display="flex" className="board-list-container">
-      <Box className="board-list" position="fixed" width="20%"> {/* 고정 위치와 너비 설정 */}
+      <Box className="board-list">
         <Paper>
           <Typography variant="h6" style={{ padding: '14px' }}>게시판 목록</Typography>
           <List>
@@ -152,7 +146,7 @@ const BoardList = () => {
           </List>
         </Paper>
       </Box>
-      <Container className="board-content" maxWidth={false} disableGutters style={{ marginLeft: '20%' }}>
+      <Container className="board-content" maxWidth={false} disableGutters>
         <Grid container spacing={10}>
           <Grid item xs={12}>
             <Box mt={2}>
@@ -169,14 +163,14 @@ const BoardList = () => {
                     <TableHead className="board-table-header">
                       <TableRow>
                         {selectedCategory === '전체 게시판' ? (
-                          <TableCell style={{ width: '20%' }}></TableCell>
+                          <TableCell style={{ width: '20%', fontSize: '18px' }}></TableCell>
                         ) : (
-                          <TableCell>번호</TableCell>
+                          <TableCell style={{ fontSize: '18px' }}>번호</TableCell>
                         )}
-                        <TableCell>제목</TableCell>
-                        <TableCell>작성자</TableCell>
-                        <TableCell>작성일</TableCell>
-                        <TableCell>조회수</TableCell>
+                        <TableCell style={{ fontSize: '18px' }}>제목</TableCell>
+                        <TableCell style={{ fontSize: '18px' }}>작성자</TableCell>
+                        <TableCell style={{ fontSize: '18px' }}>작성일</TableCell>
+                        <TableCell style={{ fontSize: '18px' }}>조회수</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
@@ -192,7 +186,7 @@ const BoardList = () => {
                             <TableCell>{(page - 1) * pageSize + index + 1}</TableCell>
                           )}
                           <TableCell>
-                            <Link to={`/board/detail/${board.boardSeq}`} className="board-link"> {/* 여기 경로를 수정 */}
+                            <Link to={`/board/detail/${board.boardSeq}`} className="board-link">
                               <Box className="board-title-container">
                                 [{getCategoryAbbreviation(board.boardCategory)}] {board.boardTitle}
                                 {board.boardImage && <Image className="icon image-icon" />}
@@ -212,7 +206,7 @@ const BoardList = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                <Box className="pagination-create-container">
+                <Box className="pagination-create-container" display="flex" justifyContent="space-between" alignItems="center">
                   <Box className="pagination-container">
                     <Pagination
                       count={totalPages}
@@ -231,27 +225,6 @@ const BoardList = () => {
                     >
                       게시글 작성
                     </Button>
-                    {isLoggedIn ? (
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={handleLogout}
-                        className="create-button"
-                        style={{ marginLeft: '10px' }}
-                      >
-                        로그아웃
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => setShowLoginDialog(true)}
-                        className="create-button"
-                        style={{ marginLeft: '10px' }}
-                      >
-                        로그인
-                      </Button>
-                    )}
                   </Box>
                 </Box>
                 <Box className="search-box" mt={2}>
@@ -273,12 +246,13 @@ const BoardList = () => {
                     onChange={(e) => setKeyword(e.target.value)}
                     onKeyDown={onSearchWordKeyDownHandler}
                     fullWidth
+                    style={{ fontSize: '16px' }}
                   />
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={handleSearch}
-                    style={{ marginLeft: '8px' }}
+                    style={{ marginLeft: '8px', fontSize: '13px' }}
                   >
                     검색
                   </Button>
@@ -291,7 +265,7 @@ const BoardList = () => {
       <Dialog open={showLoginDialog} onClose={() => setShowLoginDialog(false)}>
         <DialogTitle>로그인</DialogTitle>
         <DialogContent>
-          <LoginForm onLogin={handleLoginSuccess} /> {/* onLogin을 handleLoginSuccess로 수정 */}
+          <LoginForm onLogin={handleLoginSuccess} />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setShowLoginDialog(false)} color="primary">닫기</Button>

@@ -3,8 +3,7 @@ import './Header.css';
 import $ from 'jquery';
 import { useNavigate } from 'react-router-dom';
 import DetailList from './DetailList';
-import {MAIN_PATH} from '../../constant'
-
+import { BOARD_PATH, MAIN_PATH } from '../../constant';
 
 const Header = () => {
   const [userInput, setUserInput] = useState('');
@@ -98,10 +97,16 @@ const Header = () => {
     setUserInput('');
   };
 
-    //          event handler : 로고 클릭 이벤트 처리 함수            //
-    const onLogoClickHandler = () => {
-      navigate(MAIN_PATH());
-    }
+  const onLogoClickHandler = () => {
+    navigate(MAIN_PATH());
+  };
+
+  const handleCommunityClick = () => {
+    navigate('/board');
+    setUserInput('');
+    setIsSearchActive(false);
+    setShowPopularSearch(false);
+  };
 
   return (
     <div id="header">
@@ -114,7 +119,7 @@ const Header = () => {
       </div>
       <ul id="gnb">
         <li className="dept1">
-        <a onClick={() => navigate('/filtersearch')}>맞춤 추천</a>
+          <a onClick={() => navigate('/filtersearch')}>맞춤 추천</a>
           <ul className="inner_menu">
             <li className="dept2"><a onClick={() => navigate('/MultiFilters')}></a></li>
             <li className="dept2"><a href="#">메뉴1</a></li>
@@ -123,9 +128,9 @@ const Header = () => {
           </ul>
         </li>
         <li className="dept1">
-          <a onClick={() => navigate('/board')}>커뮤니티</a>
+          <a onClick={handleCommunityClick}>커뮤니티</a>
           <ul className="inner_menu">
-            <li className="dept2"><a href="#">정보 게시판</a></li>
+            <li className="dept2"><a onClick={() => navigate(BOARD_PATH())}>자유 게시판</a></li>
             <li className="dept2"><a href="#">나눔 게시판</a></li>
             <li className="dept2"><a href="#">장터 게시판</a></li>
             <li className="dept2"><a href="#">정보 게시판</a></li>
@@ -162,7 +167,6 @@ const Header = () => {
             onKeyPress={handleKeyPress}
             placeholder="검색어를 입력하세요"
           />
-          {/* <button onClick={handleSearchClick}>검색</button> */}
           <div className='icon-button'>
             <div className='icon search-light-icon' onClick={handleSearchClick}></div>
           </div>
